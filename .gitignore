@@ -1,0 +1,5 @@
+__pycache__/
+venv/
+data/simulator.db
+config.py
+ff.txt
