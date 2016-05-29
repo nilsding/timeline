@@ -28,12 +28,11 @@ def generate_random_tweet():
     #print(dataset)
     db_connection.close()
 
-    dataset.replace('&amp;', '&')
-    dataset.replace('&gt;', '>')
-    dataset.replace('&lt;', '<')
-
     model = SimulatorText(dataset, state_size=2)
     tweet = model.make_short_sentence(140, tries=100)
+    tweet.replace('&amp;', '&')
+    tweet.replace('&gt;', '>')
+    tweet.replace('&lt;', '<')
 
     return tweet
 
