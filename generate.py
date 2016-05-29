@@ -40,7 +40,7 @@ def send_random_tweet():
     tweet = generate_random_tweet()
     with open(config.RECENT_DB) as f:
         recent = json.load(f)
-    if len(recent) > 10:
+    if len(recent) > 30:
         recent.pop(0)
     while tweet in recent:
         tweet = generate_random_tweet()
