@@ -47,7 +47,10 @@ def send_random_tweet():
         tweet = generate_random_tweet()
 
     api = utils.get_api()
-    api.update_status(status=tweet)
+    try:
+        api.update_status(status=tweet)
+    except:
+        pass
 
     recent.append(tweet)
     with open(config.RECENT_DB, 'w') as f:
