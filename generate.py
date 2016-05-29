@@ -1,5 +1,6 @@
 import datetime
 import json
+import re
 import sqlite3
 
 import markovify
@@ -30,9 +31,9 @@ def generate_random_tweet():
 
     model = SimulatorText(dataset, state_size=2)
     tweet = model.make_short_sentence(140, tries=100)
-    tweet.replace('&amp;', '&')
-    tweet.replace('&gt;', '>')
-    tweet.replace('&lt;', '<')
+    tweet = re.sub(r'&amp;', '&', tweet)
+    tweet = re.sub(r'&lt;', '<', tweet)
+    tweet = re.sub(r'&gt;', '>', tweet)
 
     return tweet
 
