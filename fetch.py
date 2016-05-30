@@ -10,7 +10,8 @@ def is_clean(status):
     return (not '@' in status.text) \
             and (not 'RT' in status.text.lower()) \
             and (not 't.co' in status.text.lower()) \
-            and (not 'simulator' in status.author.screen_name.lower())
+            and (not 'simulator' in status.author.screen_name.lower()) \
+            and (not 'SolideSchlange' in status.author.screen_name)
 
 def latest_tweet_id():
     db_connection = sqlite3.connect(config.SQLITE_DB)
