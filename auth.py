@@ -1,5 +1,3 @@
-import webbrowser
-
 import tweepy
 
 from config import *
