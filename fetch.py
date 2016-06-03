@@ -24,7 +24,7 @@ def latest_tweet_id():
 def fetch_tweets():
     api = utils.get_api()
 
-    statuses = api.home_timeline(count=100, since_id=latest_tweet_id())
+    statuses = api.home_timeline(count=150, since_id=latest_tweet_id())
 
     db_connection = sqlite3.connect(config.SQLITE_DB)
     db_cursor = db_connection.cursor()
