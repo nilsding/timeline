@@ -1,5 +1,6 @@
 import datetime
 import json
+import random
 import re
 import sqlite3
 
@@ -29,7 +30,7 @@ def generate_random_tweet():
     #print(dataset)
     db_connection.close()
 
-    model = SimulatorText(dataset, state_size=2)
+    model = SimulatorText(dataset, state_size=random.randrange(2,4))
     tweet = model.make_short_sentence(140, tries=100)
     tweet = re.sub(r'&amp;', '&', tweet)
     tweet = re.sub(r'&lt;', '<', tweet)
