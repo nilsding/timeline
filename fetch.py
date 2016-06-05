@@ -31,9 +31,7 @@ def fetch_tweets():
 
     for status in filter(is_clean, statuses):
         print(status.author.screen_name)
-        print(status.text)
         print(status.created_at)
-        print(type(status.created_at))
         print()
         db_cursor.execute(
             'INSERT INTO tweets VALUES (?,?,?,?)',
