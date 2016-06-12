@@ -19,7 +19,11 @@ def latest_tweet_id():
     db_cursor.execute('SELECT * FROM tweets WHERE id=(SELECT max(id) FROM tweets)')
     res = db_cursor.fetchone()
     db_connection.close()
-    return res[2]
+
+    if res is not None:
+        return res[2]
+    else:
+        return None
 
 def fetch_tweets():
     api = utils.get_api()
