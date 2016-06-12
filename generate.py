@@ -11,7 +11,7 @@ import utils
 
 class SimulatorText(markovify.Text):
     def sentence_split(self, text):
-        return text.split('<...>')
+        return text.split('<>')
 
 def get_recent_tweets():
     pass
@@ -25,7 +25,7 @@ def generate_random_tweet():
 
     for tweet in db_cursor.fetchall():
         dataset += tweet[1]
-        dataset += '<...>' # delimiter
+        dataset += '<>' # delimiter
     #print(dataset)
     db_connection.close()
 
