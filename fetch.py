@@ -1,10 +1,8 @@
-import datetime
 import sqlite3
-
-import tweepy
 
 import config
 import utils
+
 
 def is_clean(status):
     return (not '@' in status.text) \
@@ -52,4 +50,3 @@ def fetch_tweets():
 
 if __name__ == '__main__':
     fetch_tweets()
-    #print(latest_tweet_id())

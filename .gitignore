@@ -1,5 +1,6 @@
 __pycache__/
 venv/
+data/recent.json
 data/simulator.db
 config.py
 dings.txt

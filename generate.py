@@ -1,10 +1,8 @@
-import datetime
 import json
 import sqlite3
 import sys
 
 import markovify
-import tweepy
 
 import config
 import utils
@@ -26,7 +24,6 @@ def generate_random_tweet():
     for tweet in db_cursor.fetchall():
         dataset += tweet[1]
         dataset += '<>' # delimiter
-    #print(dataset)
     db_connection.close()
 
     model = SimulatorText(dataset, state_size=2)
@@ -43,8 +40,6 @@ def send_random_tweet():
     tweet = generate_random_tweet()
     with open(config.RECENT_DB) as f:
         recent = json.load(f)
-    #if len(recent) > 30:
-    #    recent.pop(0)
     while tweet in recent:
         tweet = generate_random_tweet()
 
@@ -62,4 +57,3 @@ def send_random_tweet():
 if __name__ == '__main__':
     t = send_random_tweet()
     print(len(t), t)
-    #print(get_recent_tweets())
