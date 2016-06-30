@@ -17,7 +17,7 @@ def get_recent_tweets():
 def generate_random_tweet():
     db_connection = sqlite3.connect(config.SQLITE_DB)
     db_cursor = db_connection.cursor()
-    db_cursor.execute('SELECT * FROM tweets')
+    db_cursor.execute('SELECT * FROM tweets ORDER BY id DESC LIMIT 2000')
 
     dataset = ''
 
@@ -26,7 +26,7 @@ def generate_random_tweet():
         dataset += '<>' # delimiter
     db_connection.close()
 
-    model = SimulatorText(dataset, state_size=2)
+    model = SimulatorText(dataset, state_size=3)
     tweet = model.make_short_sentence(140, tries=100)
     if tweet is None:
         sys.exit(0)
