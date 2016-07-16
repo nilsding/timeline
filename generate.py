@@ -56,4 +56,4 @@ def send_random_tweet():
 
 if __name__ == '__main__':
     t = send_random_tweet()
-    print(len(t), t)
+    #print(len(t), t)
