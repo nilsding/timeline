@@ -13,12 +13,14 @@ using data/schema.sql
 The bot is not a single piece
 of software but instead a collection
 of scripts working together and
-sometimes depening on each other.  
+sometimes depending on each other.  
 Automate running them by using cron
 or your favorite scheduler.
 
 - fetch.py adds new tweets to the database
-- follow.py is a follow4follow whore
+- fetchstream.py is like fetch.py, but always active and using
+the Twitter Streaming-API (recommended)
+- follow.py is a follow4follow whore (but broken!)
 - generate.py does the actual thing
 
 Have fun.

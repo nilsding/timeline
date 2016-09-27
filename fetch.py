@@ -3,14 +3,6 @@ import sqlite3
 import config
 import utils
 
-
-def is_clean(status):
-    return (not '@' in status.text) \
-            and (not 'RT' in status.text.lower()) \
-            and (not 't.co' in status.text.lower()) \
-            and (not 'simulator' in status.author.screen_name.lower()) \
-            and (not 'SolideSchlange' in status.author.screen_name)
-
 def latest_tweet_id():
     db_connection = sqlite3.connect(config.SQLITE_DB)
     db_cursor = db_connection.cursor()
@@ -31,7 +23,7 @@ def fetch_tweets():
     db_connection = sqlite3.connect(config.SQLITE_DB)
     db_cursor = db_connection.cursor()
 
-    for status in filter(is_clean, statuses):
+    for status in filter(utils.is_clean, statuses):
         print(status.author.screen_name)
         print(status.created_at)
         print()
