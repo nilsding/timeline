@@ -4,7 +4,7 @@ Twittbot::BotPart.new :generate do
   task :generate, desc: 'Tweets something from the markov chain' do
     dataset = fetch_tweets
     model = RubyMarkovify::ArrayText.new(dataset, state_size = 2)
-    retries = 100
+    retries = 10
     while retries > 0
       tweet = model.make_short_sentence(140, tries: 100)
       break if unique?(tweet)
@@ -22,6 +22,7 @@ Twittbot::BotPart.new :generate do
   end
 
   def unique?(text)
+    return false if text.nil?
     return false if exists?(text)
     dosql("INSERT INTO posts (text, created_at) VALUES (?, ?);",
           [text, Time.now.to_i],
@@ -30,6 +31,7 @@ Twittbot::BotPart.new :generate do
   end
 
   def exists?(text)
+    return true if text.nil?
     row = dosql("SELECT 1 AS one FROM posts WHERE text = ? LIMIT 1", [text], "Tweet Exists")
     !row.empty?
   end
