@@ -1,5 +1,8 @@
 # timeline
-Takes tweets from a bot's followings and markovifies them.  Currently under a rewrite to Ruby.
+
+Takes tweets from a bot's followings and markovifies them.
+
+This is the Ruby port of the [original code](https://github.com/sneaksnake/timeline), with some enhancements.
 
 ## Instructions
 
@@ -17,3 +20,4 @@ Takes tweets from a bot's followings and markovifies them.  Currently under a re
 4. Run the bot to start fetching tweets: `twittbot start`
 5. Create an entry in your crontab which runs `twittbot cron generate`
 
+Have fun!
