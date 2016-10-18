@@ -5,3 +5,5 @@ data/simulator.db
 config.py
 dings.txt
 ff.txt
+config.yml
+*.db
