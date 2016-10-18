@@ -6,3 +6,4 @@
 :track: []
 :admins: []
 :dm_command_prefix: "!"
+:debug: true
