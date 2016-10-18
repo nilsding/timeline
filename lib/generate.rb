@@ -18,23 +18,25 @@ Twittbot::BotPart.new :generate do
     end
     next if retries == 0 && exists?(tweet)
 
-    bot.tweet(tweet)
+    puts tweet
+    #bot.tweet(tweet)
   end
 
   def fetch_tweets
-    rows = $db.execute("SELECT id, text FROM tweets ORDER BY id ASC LIMIT 150")
+    rows = dosql("SELECT id, text FROM tweets ORDER BY id DESC LIMIT 150", desc = "Tweet Load")
     rows.map{ |row| row[1] }.join('<>')
   end
 
   def unique?(text)
     return false if exists?(text)
-    $db.execute("INSERT INTO posts (text, created_at) VALUES (?, ?);",
-                [text, Time.now.to_i])
+    dosql("INSERT INTO posts (text, created_at) VALUES (?, ?);",
+          [text, Time.now.to_i],
+          "Post Insert")
     true
   end
 
   def exists?(text)
-    row = $db.execute("SELECT 1 AS one FROM posts WHERE text = ? LIMIT 1", [text])
+    row = dosql("SELECT 1 AS one FROM posts WHERE text = ? LIMIT 1", [text], "Tweet Exists")
     !row.empty?
   end
 end
