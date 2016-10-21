@@ -1,4 +1,5 @@
 require 'ruby_markovify'
+require 'cgi'
 
 Twittbot::BotPart.new :generate do
   task :generate, desc: 'Tweets something from the markov chain' do
@@ -6,7 +7,7 @@ Twittbot::BotPart.new :generate do
     model = RubyMarkovify::ArrayText.new(dataset, state_size = 2)
     retries = 10
     while retries > 0
-      tweet = model.make_short_sentence(140, tries: 100)
+      tweet = CGI.unescapeHTML(model.make_short_sentence(140, tries: 100))
       break if unique?(tweet)
       retries -= 1
     end
