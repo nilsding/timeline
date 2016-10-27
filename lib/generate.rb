@@ -33,7 +33,7 @@ Twittbot::BotPart.new :generate do
 
   def exists?(text)
     return true if text.nil?
-    row = dosql("SELECT 1 AS one FROM posts WHERE text = ? LIMIT 1", [text], "Tweet Exists")
+    row = dosql("SELECT 1 AS one FROM posts WHERE text = ? LIMIT 1", [text], "Post Exists")
     !row.empty?
   end
 
