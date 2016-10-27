@@ -15,6 +15,18 @@ Twittbot::BotPart.new :fetch do
     end
   end
 
+  on :deleted do |tweet, opts|
+    next unless opts[:stream_type] == :user
+
+    begin
+      dosql("UPDATE tweets SET deleted_at = ? WHERE id = ?",
+            [Time.now.to_i, tweet.id],
+            "Tweet Delete")
+    rescue => e
+      puts "Exception while marking tweet as deleted: #{e.message}"
+    end
+  end
+
   def clean?(tweet, opts)
     return false if opts[:retweet]
 
