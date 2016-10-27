@@ -18,7 +18,7 @@ Twittbot::BotPart.new :generate do
   end
 
   def fetch_tweets
-    rows = dosql("SELECT id, text FROM tweets ORDER BY id DESC LIMIT 150", nil, "Tweet Load")
+    rows = dosql("SELECT id, text FROM tweets WHERE deleted_at IS NULL ORDER BY id DESC LIMIT 150", nil, "Tweet Load")
     rows.map{ |row| row[1] }
   end
 
