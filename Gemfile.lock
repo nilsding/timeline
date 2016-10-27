@@ -5,6 +5,16 @@ GIT
     ruby_markovify (0.1.0)
       unidecode
 
+GIT
+  remote: https://github.com/nilsding/twittbot
+  revision: ecfd2393924cc1c4bd8774a0a2dbca3d19a472bd
+  specs:
+    twittbot (0.4.0)
+      erubis (~> 2.7, >= 2.7.0)
+      oauth (~> 0.5)
+      thor (~> 0.19)
+      twitter (~> 5.16)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -35,11 +45,6 @@ GEM
     sqlite3 (1.3.12)
     thor (0.19.1)
     thread_safe (0.3.5)
-    twittbot (0.4.0)
-      erubis (~> 2.7, >= 2.7.0)
-      oauth (~> 0.5)
-      thor (~> 0.19)
-      twitter (~> 5.16)
     twitter (5.16.0)
       addressable (~> 2.3)
       buftok (~> 0.2.0)
@@ -62,7 +67,7 @@ PLATFORMS
 DEPENDENCIES
   ruby_markovify!
   sqlite3
-  twittbot
+  twittbot!
 
 BUNDLED WITH
    1.13.0
