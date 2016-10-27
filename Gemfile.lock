@@ -7,7 +7,7 @@ GIT
 
 GIT
   remote: https://github.com/nilsding/twittbot
-  revision: ecfd2393924cc1c4bd8774a0a2dbca3d19a472bd
+  revision: 14fc5ddc512e0eef13745024fae947e598c6cc7c
   specs:
     twittbot (0.4.0)
       erubis (~> 2.7, >= 2.7.0)
