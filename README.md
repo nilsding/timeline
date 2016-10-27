@@ -2,7 +2,10 @@
 
 Takes tweets from a bot's followings and markovifies them.
 
-This is the Ruby port of the [original code](https://github.com/sneaksnake/timeline), with some enhancements.
+This is the Ruby port of the [original code](https://github.com/sneaksnake/timeline), with some enhancements:
+
+* Database migrations
+* Does not use deleted tweets for generation
 
 ## Instructions
 
