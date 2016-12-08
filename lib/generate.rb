@@ -8,10 +8,10 @@ Twittbot::BotPart.new :generate do
     retries = 10
     while retries > 0
       tweet = CGI.unescapeHTML(model.make_short_sentence(140, tries: 100))
-      break if unique?(tweet)
+      break if average_word_length(tweet) > 2.0 && unique?(tweet)
       retries -= 1
     end
-    next if retries == 0 && exists?(tweet)
+    next if retries == 0 && average_word_length(tweet) <= 2.0 && exists?(tweet)
 
     tweet_obj = bot.tweet(tweet)
     update_post(tweet_obj)
@@ -40,5 +40,10 @@ Twittbot::BotPart.new :generate do
   def update_post(tweet)
     id = dosql("SELECT id FROM posts WHERE text = ? LIMIT 1", [tweet.text], "Post Load").first.first
     dosql("UPDATE posts SET tweet_id = ? WHERE id = ?", [tweet.id, id], "Post Update")
+  end
+
+  def word_length(text)
+    word_lengths = text.split(/\s+/).map(&:length)
+    word_lengths.reduce(:+) / word_lengths.count.to_f
   end
 end
