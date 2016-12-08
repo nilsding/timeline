@@ -35,7 +35,12 @@ Twittbot::BotPart.new :fetch do
       return false if tweet.user.screen_name.downcase == user.downcase
     end
 
-    filter_regexps = [/@/, /t\.co/, /\ART/]
+    filter_regexps = [
+      /@/,              # Mentions
+      /t\.co/,          # Links
+      /\ART\s+/,        # Old-style retweets
+      /[\u5350\u534d]/  # "Friendship Windmill"
+    ]
     filter_regexps.each do |regexp|
       return false if tweet.text =~ regexp
     end
