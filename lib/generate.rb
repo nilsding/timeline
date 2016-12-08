@@ -42,7 +42,7 @@ Twittbot::BotPart.new :generate do
     dosql("UPDATE posts SET tweet_id = ? WHERE id = ?", [tweet.id, id], "Post Update")
   end
 
-  def word_length(text)
+  def average_word_length(text)
     word_lengths = text.split(/\s+/).map(&:length)
     word_lengths.reduce(:+) / word_lengths.count.to_f
   end
