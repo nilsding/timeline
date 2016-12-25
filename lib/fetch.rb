@@ -36,10 +36,11 @@ Twittbot::BotPart.new :fetch do
     end
 
     filter_regexps = [
-      /@/,              # Mentions
-      /t\.co/,          # Links
-      /\ART\s+/,        # Old-style retweets
-      /[\u5350\u534d]/  # "Friendship Windmill"
+      /@/,               # Mentions
+      /t\.co/,           # Links
+      /\ART\s+/,         # Old-style retweets
+      /[\u5350\u534d]/,  # "Friendship Windmill"
+      /\u262d/           # Communist propaganda
     ]
     filter_regexps.each do |regexp|
       return false if tweet.text =~ regexp
