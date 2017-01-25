@@ -8,10 +8,11 @@ Twittbot::BotPart.new :generate do
     retries = 10
     while retries > 0
       tweet = CGI.unescapeHTML(model.make_short_sentence(140, tries: 100))
-      break if average_word_length(tweet) > 2.0 && unique?(tweet)
+      # TODO: move the if conditions for avg word length etc. to own method
+      break if average_word_length(tweet) > 2.0 && unique?(tweet) && unique_words(tweet).length > 2
       retries -= 1
     end
-    next if retries == 0 && average_word_length(tweet) <= 2.0 && exists?(tweet)
+    next if retries == 0 && average_word_length(tweet) <= 2.0 && exists?(tweet) && unique_words(tweet).length > 2
 
     tweet_obj = bot.tweet(tweet)
     update_post(tweet_obj)
@@ -45,5 +46,9 @@ Twittbot::BotPart.new :generate do
   def average_word_length(text)
     word_lengths = text.split(/\s+/).map(&:length)
     word_lengths.reduce(:+) / word_lengths.count.to_f
+  end
+
+  def unique_words(text)
+    text.downcase.split(/\s+/).uniq
   end
 end
