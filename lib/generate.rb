@@ -7,7 +7,7 @@ Twittbot::BotPart.new :generate do
     model = RubyMarkovify::ArrayText.new(dataset, state_size = 2)
     retries = 10
     while retries > 0
-      tweet = CGI.unescapeHTML(model.make_short_sentence(140, tries: 100))
+      tweet = CGI.unescapeHTML(model.make_short_sentence(280, tries: 100))
       # TODO: move the if conditions for avg word length etc. to own method
       break if average_word_length(tweet) > 2.0 && unique?(tweet) && unique_words(tweet).length > 2
       retries -= 1
