@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
 
-gem 'twittbot', git: 'https://github.com/nilsding/twittbot'
+gem 'twittbot', '~> 0.5'
 gem 'sqlite3'
 gem 'ruby_markovify', git: 'https://github.com/meew0/ruby_markovify'

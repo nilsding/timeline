@@ -8,7 +8,7 @@ Twittbot::BotPart.new :fetch do
 
     begin
       dosql("INSERT INTO tweets (id, user_id, text, created_at) VALUES (?, ?, ?, ?)",
-            [tweet.id, tweet.user.id, tweet.text, tweet.created_at.to_i],
+            [tweet.id, tweet.user.id, tweet.expanded_text, tweet.created_at.to_i],
             "Tweet Insert")
     rescue => e
       puts "Exception while inserting tweet: #{e.message}"
@@ -43,7 +43,7 @@ Twittbot::BotPart.new :fetch do
       /\u262d/           # Communist propaganda
     ]
     filter_regexps.each do |regexp|
-      return false if tweet.text =~ regexp
+      return false if tweet.expanded_text =~ regexp
     end
 
     true

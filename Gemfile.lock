@@ -5,22 +5,13 @@ GIT
     ruby_markovify (0.1.0)
       unidecode
 
-GIT
-  remote: https://github.com/nilsding/twittbot
-  revision: 14fc5ddc512e0eef13745024fae947e598c6cc7c
-  specs:
-    twittbot (0.4.0)
-      erubis (~> 2.7, >= 2.7.0)
-      oauth (~> 0.5)
-      thor (~> 0.19)
-      twitter (~> 5.16)
-
 GEM
   remote: https://rubygems.org/
   specs:
-    addressable (2.4.0)
+    addressable (2.5.2)
+      public_suffix (>= 2.0.2, < 4.0)
     buftok (0.2.0)
-    domain_name (0.5.20160826)
+    domain_name (0.5.20170404)
       unf (>= 0.0.5, < 1.0.0)
     equalizer (0.0.10)
     erubis (2.7.0)
@@ -33,19 +24,25 @@ GEM
       http_parser.rb (~> 0.6.0)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
-    http-form_data (1.0.1)
+    http-form_data (1.0.3)
     http_parser.rb (0.6.0)
-    json (1.8.3)
+    json (1.8.6)
     memoizable (0.4.2)
       thread_safe (~> 0.3, >= 0.3.1)
     multipart-post (2.0.0)
     naught (1.1.0)
-    oauth (0.5.1)
+    oauth (0.5.3)
+    public_suffix (3.0.0)
     simple_oauth (0.3.1)
     sqlite3 (1.3.12)
-    thor (0.19.1)
-    thread_safe (0.3.5)
-    twitter (5.16.0)
+    thor (0.20.0)
+    thread_safe (0.3.6)
+    twittbot (0.5.0)
+      erubis (~> 2.7, >= 2.7.0)
+      oauth (~> 0.5)
+      thor (~> 0.19)
+      twitter (~> 5.16)
+    twitter (5.17.0)
       addressable (~> 2.3)
       buftok (~> 0.2.0)
       equalizer (= 0.0.10)
@@ -58,7 +55,7 @@ GEM
       simple_oauth (~> 0.3.0)
     unf (0.1.4)
       unf_ext
-    unf_ext (0.0.7.2)
+    unf_ext (0.0.7.4)
     unidecode (1.0.0)
 
 PLATFORMS
@@ -67,7 +64,7 @@ PLATFORMS
 DEPENDENCIES
   ruby_markovify!
   sqlite3
-  twittbot!
+  twittbot (~> 0.5)
 
 BUNDLED WITH
-   1.13.0
+   1.16.0
