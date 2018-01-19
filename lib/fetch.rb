@@ -50,8 +50,8 @@ Twittbot::BotPart.new :fetch do
   end
 
   def upsert_user(user)
-    dosql("INSERT OR REPLACE INTO users (id, screen_name, created_at) VALUES (?, ?, ?);",
-          [user.id, user.screen_name, user.created_at.to_i],
+    dosql("INSERT OR REPLACE INTO users (id, screen_name, created_at, protected) VALUES (?, ?, ?, ?);",
+          [user.id, user.screen_name, user.created_at.to_i, (user.protected? ? 1 : 0)],
           "User Upsert")
   rescue => e
     puts "Exception while upserting user: #{e.message}"

@@ -11,7 +11,7 @@ end
 
 Twittbot::BotPart.new :database do
 
-  TARGET_SCHEMA = 2
+  TARGET_SCHEMA = 3
 
   on :load do
     do_migration if current_schema_version < TARGET_SCHEMA
@@ -82,6 +82,17 @@ SQL
     when 2
       should_update = true
       dosql("ALTER TABLE tweets ADD COLUMN deleted_at INTEGER;")
+    when 3
+      should_update = true
+      dosql <<-SQL
+        ALTER TABLE users
+        ADD COLUMN protected INTEGER
+        CONSTRAINT users_protected_not_null NOT NULL
+        CONSTRAINT users_protected_default DEFAULT 0;
+SQL
+      dosql <<-SQL
+        CREATE INDEX index_users_on_protected ON users (protected);
+SQL
     end
     update_schema_migrations(target_version) if should_update
     puts "========  Migration successful.  Took #{(Time.now - start).round(3).to_s.ljust(5, '0')}s"
