@@ -1,29 +1,64 @@
 Twittbot::BotPart.new :fetch do
-  on :tweet do |tweet, opts|
-    # only require tweets from user stream
-    next unless opts[:stream_type] == :user
-    next unless clean?(tweet, opts)
+  if $bot[:stream]
+    puts "streaming mode ON"
 
-    upsert_user(tweet.user)
+    on :tweet do |tweet, opts|
+      # only require tweets from user stream
+      next unless opts[:stream_type] == :user
+      next unless clean?(tweet, opts)
 
-    begin
-      dosql("INSERT INTO tweets (id, user_id, text, created_at) VALUES (?, ?, ?, ?)",
-            [tweet.id, tweet.user.id, tweet.expanded_text, tweet.created_at.to_i],
-            "Tweet Insert")
-    rescue => e
-      puts "Exception while inserting tweet: #{e.message}"
+      upsert_user(tweet.user)
+
+      begin
+        dosql("INSERT INTO tweets (id, user_id, text, created_at) VALUES (?, ?, ?, ?)",
+              [tweet.id, tweet.user.id, tweet.expanded_text, tweet.created_at.to_i],
+              "Tweet Insert")
+      rescue => e
+        puts "Exception while inserting tweet: #{e.message}"
+      end
     end
-  end
 
-  on :deleted do |tweet, opts|
-    next unless opts[:stream_type] == :user
+    on :deleted do |tweet, opts|
+      next unless opts[:stream_type] == :user
 
-    begin
-      dosql("UPDATE tweets SET deleted_at = ? WHERE id = ?",
-            [Time.now.to_i, tweet.id],
-            "Tweet Delete")
+      begin
+        dosql("UPDATE tweets SET deleted_at = ? WHERE id = ?",
+              [Time.now.to_i, tweet.id],
+              "Tweet Delete")
+      rescue => e
+        puts "Exception while marking tweet as deleted: #{e.message}"
+      end
+    end
+  else
+    puts ":: streaming mode OFF, will fetch periodically (every minute or so)"
+
+    every 1, :minute do
+      until (tweets = fetch_tweets_since(last_id)).empty?
+        tweets.each do |tweet|
+          next unless clean?(tweet, retweet: tweet.retweet?)
+          upsert_user(tweet.user)
+
+          begin
+            dosql("INSERT INTO tweets (id, user_id, text, created_at) VALUES (?, ?, ?, ?)",
+                  [tweet.id, tweet.user.id, tweet.expanded_text, tweet.created_at.to_i],
+                  "Tweet Insert")
+          rescue => e
+            puts "Exception while inserting tweet: #{e.message}"
+          end
+        end
+      end
+    end
+
+    def last_id
+      dosql("SELECT MAX(id) FROM tweets;", nil, "Tweet Load").first[0]
+    end
+
+    def fetch_tweets_since(id)
+      $bot[:client].home_timeline(since_id: id, count: 800, include_rts: false)
     rescue => e
-      puts "Exception while marking tweet as deleted: #{e.message}"
+      puts "exception while fetching tweets: #{e.class} (#{e.message})"
+      puts "returning empty set"
+      []
     end
   end
 
