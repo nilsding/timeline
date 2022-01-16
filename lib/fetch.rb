@@ -82,6 +82,7 @@ Twittbot::BotPart.new :fetch do
     end
 
     filter_regexps = [
+      /Wordle/i,         # Wordle share output
       /@/,               # Mentions
       /t\.co/,           # Links
       /\ART\s+/,         # Old-style retweets
